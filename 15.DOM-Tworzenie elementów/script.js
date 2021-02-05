@@ -491,7 +491,27 @@ console.log("");
 console.log("Zadanie 12");
 console.log("");
 {
+    function createObjectWithString(stringParameter) {
+        return {
+            stringFromFunction: stringParameter
+        }
+    }
 
+    let createdObject = createObjectWithString("Jakiœ string to sprawdzenia");
+
+    createdObject.checkMethod = function () {
+        if (this.stringFromFunction.includes("Ala")) {
+            this.stringFromFunction = this.stringFromFunction.replaceAll("Ala", "Ola");
+            console.log(this.stringFromFunction);
+        }
+        else {
+            let element = document.createElement("div");
+            element.innerHTML = "S³owo Ala nie wystêpuje w tekœcie.";
+            document.body.appendChild(element);
+        }
+    }
+
+    createdObject.checkMethod();
 }
 
 // Zadanie 13
@@ -500,6 +520,39 @@ console.log("");
 console.log("Zadanie 13");
 console.log("");
 {
+    function convertCountLettersInStringArray(stringArray) {
+        let returnArray = [];
+        let reg = new RegExp("[\\W\\d]", 'g');
+
+        stringArray.forEach((stringElement) => {
+            let onlyLetters = stringElement.replaceAll(reg, "");
+            returnArray.push(onlyLetters.length);
+        });
+        return returnArray;
+    }
+
+    function arraySum(stringArrayParameter) {
+        let result = 0;
+        stringArrayParameter.forEach((element) => {
+            result += element;
+        });
+        return result;
+    }
+
+    function avgOfArray(arrayParameter) {
+        let sum = arraySum(arrayParameter);
+        return sum / arrayParameter.length;
+    }
+
+    let testCollection = ["To jest 45", "Tu jest 145 i 34"];
+    let lengthArray = convertCountLettersInStringArray(testCollection);
+    let sumOfArray = arraySum(lengthArray);
+    let arrayAvg = avgOfArray(lengthArray);
+
+
+    console.log(lengthArray);
+    console.log(`Sum: ${sumOfArray}`);
+    console.log(`Avg: ${arrayAvg}`);
 
 }
 
@@ -509,5 +562,39 @@ console.log("");
 console.log("Zadanie 14");
 console.log("");
 {
+    let testObject = {
+        name: '',
+        surname: '',
+        age: ''
+    }
 
+    function newObjectValues(nameParameter, surnameParameter, ageParameter) {
+        testObject.name = nameParameter;
+        testObject.surname = surnameParameter;
+        testObject.ageParameter = ageParameter;
+
+        testObject.nameLength = nameParameter.length;
+        testObject.surnameLength = surnameParameter.length;
+        testObject.ageLength = ageParameter.length;
+
+        if (nameParameter > 5 || surnameParameter > 5 || ageParameter > 5) {
+            let buttonElement = document.createElement("button");
+            buttonElement.innerHTML = "Reset";
+            document.body.appendChild(buttonElement);
+
+            buttonElement.addEventListener("click", (e) => {
+                testObject = {
+                    name: '',
+                    surname: '',
+                    age: ''
+                }
+                console.log(testObject);
+                e.target.remove();
+            })
+        }
+    }
+
+    console.log(testObject);
+    newObjectValues("Jan", "Nowak", 24);
+    console.log(testObject);
 }
